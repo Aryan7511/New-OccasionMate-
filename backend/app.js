@@ -21,7 +21,6 @@ app.use(
   })
 );
 app.use("/", express.static("uploads"));
-app.use("/", express.static("uploads"));
 app.use("/test", (req, res) => {
   res.send("Hello world!");
 });
@@ -36,11 +35,13 @@ if (process.env.NODE_ENV !== "PRODUCTION") {
 }
 
 // Routes
-import userRoutes from "./routes/userRoutes.js";
 import passwordAuthRoutes from "./routes/passwordAuthRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+import proprietorRoutes from "./routes/proprietorRoutes.js";
 
 app.use("/api/v2/auth", passwordAuthRoutes);
 app.use("/api/v2/user", userRoutes);
+app.use("/api/v2/proprietor", proprietorRoutes);
 
 // it's for ErrorHandling
 app.use(ErrorHandler);

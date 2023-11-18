@@ -1,6 +1,5 @@
 import bcrypt from "bcrypt";
 import User from "../models/User.js";
-import Vendor from "../models/Vendor.js";
 import Proprietor from "../models/Proprietor.js";
 import otpGenerator from "otp-generator";
 import sendMail from "../utils/sendMail.js";
@@ -23,10 +22,7 @@ export const validateAndOtpSender = async (req, res, next) => {
       case "user":
         person = await User.findOne({ email: email });
         break;
-      case "vendor":
-        person = await Vendor.findOne({ email: email });
-        break;
-      case "proprietor":
+        case "proprietor":
         person = await Proprietor.findOne({ email: email });
         break;
       default:
@@ -79,7 +75,7 @@ export const validateAndOtpSender = async (req, res, next) => {
 export const validateOtp = async (req, res, next) => {
   try {
     const { email, otpNumber } = req.body;
-    // console.log(email, otpNumber);
+    console.log(email, otpNumber);
     const otp = await Otp.findOne({ email: email, otpNumber: otpNumber });
     // console.log(otp);
     if (!otp) {
@@ -118,13 +114,6 @@ export const changePassword = async (req, res, next) => {
     switch (lowercaseRole) {
       case "user":
         person = await User.findOneAndUpdate(
-          { email: email },
-          { password: passwordHash },
-          { new: true }
-        );
-        break;
-      case "vendor":
-        person = await Vendor.findOneAndUpdate(
           { email: email },
           { password: passwordHash },
           { new: true }

@@ -27,8 +27,6 @@ const App = () => {
         />
 				{/* <Route path="/vendor-register" element={<VendorRegisterPage />} /> */}
 				{/* <Route path="/vendor-login" element={VendorLoginPage} /> */}
-				{/* <Route path="/proprietor-register" element={<ProprietorRegisterPage />} />*/}
-				{/* <Route path="/proprietor-login" element={<ProprietorLoginPage />} />*/}
 				<Route path="/password-reset" element={<PasswordResetPage />} />
 				<Route path="/forgotpassword" element={<ForgotPasswordPage />} />
 				<Route path="*" element={<ErrorPage />} />

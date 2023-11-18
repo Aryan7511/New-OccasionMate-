@@ -3,12 +3,12 @@ const router = express.Router();
 
 import {
   validateAndOtpSender,
-  validateOtp,
   changePassword,
+  validateOtp,
 } from "../controllers/passwordResetControllers.js";
 
 router.post("/forgotPassword", validateAndOtpSender);
-router.post("/validateOtp", validateOtp);
 router.put("/changePassword", changePassword);
+router.post("/validateOtp", validateOtp);
 
 export default router;

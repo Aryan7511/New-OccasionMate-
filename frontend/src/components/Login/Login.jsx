@@ -22,7 +22,7 @@ const Login = () => {
 
 	const submitHandler = async (data) => {
 		const { email, password } = data;
-		// console.log(data);
+		console.log(data);
         try {
             setIsLoading(true);
             const response = await axios.post(
@@ -35,13 +35,15 @@ const Login = () => {
             );
             console.log(response);
             setIsLoading(false);
-            toast.success("Login Successfull!");
             navigate("/");
+            toast.success("Login Successfull!");
             window.location.reload(true);
-          } catch (err) {
+          } catch (error) {
             setIsLoading(false);
-            // toast.error(err.response.data.message);
-            console.log(err);
+            if (error.response && error.response.data.message) toast.error(error.response.data.message);
+			else toast.error(error.message);
+			console.log(error);
+            console.log(error);
           }
 	};
 
