@@ -13,13 +13,13 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
-// app.use(
-//   cors({
-//     origin: process.env.Local_Host,
-//     credentials: true,
-//   })
-// );
+// app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3006",
+    credentials: true,
+  })
+);
 app.use("/", express.static("uploads"));
 app.use("/", express.static("uploads"));
 app.use("/test", (req, res) => {

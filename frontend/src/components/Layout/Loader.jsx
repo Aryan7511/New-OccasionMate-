@@ -1,4 +1,5 @@
 import ReactDOM from 'react-dom';
+// eslint-disable-next-line
 import loaderStyles from "./loaderStyles.css";
 
 const Loader = () => {
