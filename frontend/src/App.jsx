@@ -14,6 +14,12 @@ import {
 	ForgotPasswordPage
 } from './routes/Routes';
 
+import {
+	ProprietorActivationPage,
+	ProprietorLoginPage,
+	ProprietorRegisterPage
+} from './routes/VenueRoutes';
+
 const App = () => {
 	return (
 		<div className="font-roboto">
@@ -21,14 +27,16 @@ const App = () => {
 				<Route path="/" element={<HomePage />} />
 				<Route path="/register" element={<UserRegisterPage />} />
 				<Route path="/login" element={<UserLoginPage />} />
-				<Route
-          path="/activation/:activation_token"
-          element={<UserActivationPage />}
-        />
-				{/* <Route path="/vendor-register" element={<VendorRegisterPage />} /> */}
-				{/* <Route path="/vendor-login" element={VendorLoginPage} /> */}
+				<Route path="/activation/:activation_token" element={<UserActivationPage />} />
 				<Route path="/password-reset" element={<PasswordResetPage />} />
 				<Route path="/forgotpassword" element={<ForgotPasswordPage />} />
+				{/* Proprietor */}
+				<Route path="/proprietor-register" element={<ProprietorRegisterPage />} />
+				<Route path="/proprietor-login" element={<ProprietorLoginPage />} />
+				<Route
+					path="/proprietor/activation/:activation_token"
+					element={<ProprietorActivationPage />}
+				/>
 				<Route path="*" element={<ErrorPage />} />
 			</Routes>
 			<ToastContainer

@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { server } from '../server';
-import Loader from '../components/Layout/Loader';
+import { server } from '../../server';
+import Loader from '../../components/Layout/Loader';
 
-const UserActivationPage = () => {
+const ProprietorActivationPage = () => {
 	const { activation_token } = useParams();
 	const [error, setError] = useState(false);
 	const [isLoading, setIsLoading] = useState(true);
@@ -14,7 +14,7 @@ const UserActivationPage = () => {
 			const sendRequest = async () => {
 				try {
 					// eslint-disable-next-line
-					const response = await axios.post(`${server}/user/activation`, {
+					const response = await axios.post(`${server}/proprietor/activation`, {
 						activation_token
 					});
 					// console.log(response);
@@ -28,7 +28,6 @@ const UserActivationPage = () => {
 		}
 		// eslint-disable-next-line
 	}, []);
-
 	return (
 		<div
 			style={{
@@ -51,4 +50,4 @@ const UserActivationPage = () => {
 	);
 };
 
-export default UserActivationPage;
+export default ProprietorActivationPage;

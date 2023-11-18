@@ -1,5 +1,6 @@
-// create token and saving that in cookies
+// create token for user and saving that in cookies
 const sendToken = (user, statusCode, res) => {
+  //this user can be anyone user or proprietor
   const token = user.getJwtToken();
 
 

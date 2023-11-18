@@ -11,7 +11,9 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { CgSpinner } from 'react-icons/cg';
 
-const RegisterForm = () => {
+// businessName, phoneNumber, businessAddress
+
+export const ProprietorRegister = () => {
 	const navigate = useNavigate();
 	const [showPassword, setShowPassword] = useState(false);
 	const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -50,51 +52,58 @@ const RegisterForm = () => {
 			lastName: '',
 			email: '',
 			password: '',
-			confirmPassword: ''
+			confirmPassword: '',
+			businessName: '',
+			phoneNumber: '',
+			businessAddress: ''
 		},
 		mode: 'onChange'
 	});
 
 	const submitHandler = async (data) => {
-		const { firstName, lastName, email, password } = data;
+		const { firstName, lastName, email, password, businessName, phoneNumber, businessAddress } =
+			data;
 		// console.log(data);
 		const fullName = firstName + ' ' + lastName;
 		const config = { headers: { 'Content-Type': 'multipart/form-data' } };
 		const newForm = new FormData();
-		console.log(avatar);
+		// console.log(avatar);
 		newForm.append('file', avatar?.file);
 		newForm.append('name', fullName);
 		newForm.append('email', email);
 		newForm.append('password', password);
+		newForm.append('businessName', businessName);
+		newForm.append('phoneNumber', phoneNumber);
+		newForm.append('businessAddress', businessAddress);
 
 		try {
 			setIsLoading(true);
-			const res = await axios.post(`${server}/user/create-user`, newForm, config);
+			const res = await axios.post(`${server}/proprietor/create-proprietor`, newForm, config);
 			console.log(res);
-			toast.success(res.data.message);
+			toast.success(res?.data.message);
 			setIsLoading(false);
-			navigate('/login');
-			// setAvatar(null);
+			navigate('/proprietor-login');
 		} catch (error) {
 			setIsLoading(false);
-			if (error.response && error.response.data.message) toast.error(error.response.data.message);
+            if (error.response && error.response.data.message) toast.error(error.response.data.message);
 			else toast.error(error.message);
 			console.log(error);
 		}
 	};
 
 	return (
-		<>
+		<div className=" my-12 rounded-2xl bg-gray-100 py-12 shadow-lg xs:max-w-[80%] sm:max-w-[60%] sm:p-4 lg:max-w-[40%]  ">
 			{openCrop &&
 				createPortal(
 					<CropEasy avatar={avatar} setAvatar={setAvatar} setOpenCrop={setOpenCrop} />,
 					document.getElementById('portal')
 				)}
-			<div className="px-10 sm:w-1/2 sm:px-3 sm:py-3 md:py-5">
-				<div className="mb-6 px-8 text-center sm:mb-4">
+			<div className="mx-auto px-10 sm:px-3 sm:py-3  md:py-5">
+				<div className="mb-6 text-center xs:px-8 ">
 					<h2 className=" font-roboto text-3xl font-semibold ">Welcome</h2>
-					<p className=" text-xs text-[#959595]">
-						Register to create your first account and unlock a world of event possibilities!
+					<p className="text-xs text-[#959595]">
+						Register to establish your account and unlock a realm of business opportunities and
+						tools designed for proprietors!
 					</p>
 				</div>
 				<form className="" onSubmit={handleSubmit(submitHandler)}>
@@ -151,6 +160,96 @@ const RegisterForm = () => {
 								<p className="mt-1 text-xs text-red-500">{errors.lastName?.message}</p>
 							)}
 						</div>
+					</div>
+
+					<div className="mt-4">
+						<label htmlFor="businessName" className="block text-sm font-semibold  text-gray-700">
+							Business Name
+						</label>
+						<input
+							type="text"
+							autoComplete="business-name"
+							id="businessName"
+							{...register('businessName', {
+								required: {
+									value: true,
+									message: 'Business Name is required'
+								},
+								minLength: {
+									value: 1,
+									message: 'Business Name length must be at least 1 character'
+								}
+							})}
+							placeholder="Enter Business Name"
+							className={`mt-2 w-full rounded-lg border bg-gray-200 px-4 py-3 font-roboto text-sm placeholder:font-roboto placeholder:text-sm focus:bg-white focus:outline-none ${
+								errors.businessName ? 'border-red-500' : 'border-[#c3cad9]'
+							}`}
+						/>
+						{errors.businessName?.message && (
+							<p className="mt-1 text-xs text-red-500">{errors.businessName?.message}</p>
+						)}
+					</div>
+
+					<div className="mt-4">
+						<label htmlFor="phoneNumber" className="block text-sm font-semibold  text-gray-700">
+							Phone Number
+						</label>
+						<input
+							type="number"
+							id="phoneNumber"
+							{...register('phoneNumber', {
+								valueAsNumber: true,
+								required: {
+									value: true,
+									message: 'Phone Number is required'
+								},
+								pattern: {
+									value: /^(0|[1-9]\d*)(\.\d+)?$/, // Use regex pattern to validate 10 digits
+									message: 'Please enter a valid  phone number'
+								},
+								validate: (value) => {
+									let numberAsString = value.toString();
+									if (numberAsString.length !== 10) {
+										return 'Please enter a valid 10-digit phone number';
+									}
+								}
+							})}
+							placeholder="Enter Phone Number"
+							className={`mt-2 w-full rounded-lg border bg-gray-200 px-4 py-3 font-roboto text-sm placeholder:font-roboto placeholder:text-sm focus:bg-white focus:outline-none ${
+								errors.phoneNumber ? 'border-red-500' : 'border-[#c3cad9]'
+							}`}
+						/>
+						{errors.phoneNumber?.message && (
+							<p className="mt-1 text-xs text-red-500">{errors.phoneNumber?.message}</p>
+						)}
+					</div>
+
+					<div className="mt-4">
+						<label htmlFor="businessAddress" className="block text-sm font-semibold  text-gray-700">
+							Business Address
+						</label>
+						<input
+							type="text"
+							id="businessAddress"
+							autoComplete="business-address"
+							{...register('businessAddress', {
+								required: {
+									value: true,
+									message: 'Business Address is required'
+								},
+								minLength: {
+									value: 1,
+									message: 'Business Address length must be at least 1 character'
+								}
+							})}
+							placeholder="Enter Phone Number"
+							className={`mt-2 w-full rounded-lg border bg-gray-200 px-4 py-3 font-roboto text-sm placeholder:font-roboto placeholder:text-sm focus:bg-white focus:outline-none ${
+								errors.businessAddress ? 'border-red-500' : 'border-[#c3cad9]'
+							}`}
+						/>
+						{errors.businessAddress?.message && (
+							<p className="mt-1 text-xs text-red-500">{errors.businessAddress?.message}</p>
+						)}
 					</div>
 
 					<div className="mt-4">
@@ -311,13 +410,14 @@ const RegisterForm = () => {
 
 				<p className=" text-center text-xs font-semibold text-gray-700 lg:text-sm ">
 					Already have an account?{' '}
-					<Link to="/login" className="text-primary  hover:text-blue-800 focus:text-blue-800">
+					<Link
+						to="/proprietor-login"
+						className="text-primary  hover:text-blue-800 focus:text-blue-800"
+					>
 						Login now
 					</Link>
 				</p>
 			</div>
-		</>
+		</div>
 	);
 };
-
-export default RegisterForm;

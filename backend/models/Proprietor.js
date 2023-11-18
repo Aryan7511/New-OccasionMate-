@@ -12,6 +12,11 @@ const ProprietorSchema = new mongoose.Schema({
     trim: true,
     required: [true, "Please enter your name!"],
   },
+  businessName: {
+    type: String,
+    trim: true,
+    required: [true, "Please enter your business name!"],
+  },
   email: {
     type: String,
     lowercase: true,
@@ -26,32 +31,20 @@ const ProprietorSchema = new mongoose.Schema({
     select: false,
     trim: true,
   },
+  description: {
+    type: String,
+  },
   phoneNumber: {
     type: Number,
     trim: true,
+    required: true,
   },
-  addresses: [
-    {
-      country: {
-        type: String,
-      },
-      city: {
-        type: String,
-      },
-      address1: {
-        type: String,
-      },
-      address2: {
-        type: String,
-      },
-      zipCode: {
-        type: Number,
-      },
-      addressType: {
-        type: String,
-      },
-    },
-  ],
+  businessAddress: {
+    type: String,
+    required: true,
+    trim: true,
+    lowercase: true,
+  },
   role: {
     type: String,
     default: "proprietor",

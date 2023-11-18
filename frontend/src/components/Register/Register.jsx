@@ -11,7 +11,7 @@ const SLIDE_COUNT = 4;
 const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
 //------------------------------------------------------
 
-const Login = () => {
+const Register = () => {
 	return (
 		<div className="flex max-w-2xl justify-around rounded-2xl bg-gray-100 py-12 shadow-lg sm:p-4 lg:max-w-3xl ">
 			<RegisterForm />
@@ -26,4 +26,4 @@ const Login = () => {
 	);
 };
 
-export default Login;
+export default Register;

@@ -1,6 +1,4 @@
-import express from "express";
 import User from "../models/User.js";
-import { upload } from "../multer.js";
 import ErrorHandler from "../utils/ErrorHandler.js";
 import catchAsyncErrors from "../middleware/catchAsyncErrors.js";
 import sendMail from "../utils/sendMail.js";
@@ -43,10 +41,11 @@ const createUser = async (req, res, next) => {
     const activationToken = createActivationToken(user);
     const activationUrl = `${process.env.Local_Host}/activation/${activationToken}`;
     try {
+      const firstName = user.name.split(" ")[0];
       await sendMail({
         email: user.email,
         subject: "Activate your account",
-        body: `Hello ${user.name}, please click on the link to activate your account: ${activationUrl}`,
+        body: `Hello ${firstName}, please click on the link to activate your account: ${activationUrl}`,
       });
       return res.status(201).json({
         success: true,
