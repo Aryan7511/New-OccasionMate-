@@ -5,6 +5,7 @@ import UserLoginPage from '../pages/UserLoginPage';
 import UserRegisterPage from '../pages/UserRegisterPage';
 import PasswordResetPage from '../pages/PasswordResetPage';
 import ForgotPasswordPage from '../pages/ForgotPasswordPage';
+import ProfilePage from '../pages/ProfilePage';
 
 export {
 	ErrorPage,
@@ -13,5 +14,6 @@ export {
 	UserLoginPage,
 	UserRegisterPage,
 	PasswordResetPage,
-	ForgotPasswordPage
+	ForgotPasswordPage,
+	ProfilePage
 };

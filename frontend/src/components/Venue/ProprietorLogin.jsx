@@ -35,7 +35,7 @@ const ProprietorLogin = () => {
 			);
 			console.log(response);
 			setIsLoading(false);
-			navigate('/');
+			navigate('/proprietor/dashboard', { replace: true });
 			toast.success('Login Successfull!');
 			window.location.reload(true);
 		} catch (error) {

@@ -140,4 +140,23 @@ const loginProprietor = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
-export { createProprietor, loginProprietor, activateProprietor };
+// load shop
+
+const getProprietor = catchAsyncErrors(async (req, res, next) => {
+  try {
+    const proprietor = await Proprietor.findById(req.proprietor._id);
+
+    if (!proprietor) {
+      return next(new ErrorHandler("User doesn't exists", 400));
+    }
+
+    res.status(200).json({
+      success: true,
+      proprietor,
+    });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+  }
+});
+
+export { createProprietor, loginProprietor, activateProprietor, getProprietor };
