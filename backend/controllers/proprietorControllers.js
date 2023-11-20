@@ -159,4 +159,25 @@ const getProprietor = catchAsyncErrors(async (req, res, next) => {
   }
 });
 
-export { createProprietor, loginProprietor, activateProprietor, getProprietor };
+const logoutProprietor = catchAsyncErrors(async (req, res, next) => {
+  try {
+    res.cookie("proprietor_token", null, {
+      expires: new Date(Date.now()),
+      httpOnly: true,
+    });
+    res.status(201).json({
+      success: true,
+      message: "Log out successful!",
+    });
+  } catch (error) {
+    return next(new ErrorHandler(error.message, 500));
+  }
+});
+
+export {
+  createProprietor,
+  loginProprietor,
+  activateProprietor,
+  getProprietor,
+  logoutProprietor,
+};
